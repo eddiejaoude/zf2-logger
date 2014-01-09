@@ -5,3 +5,4 @@ demos/
 extras/documentation
 .idea
 vendor
+*.swp
