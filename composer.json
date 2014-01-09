@@ -1,5 +1,5 @@
 {
-    "name" : "eddiejaoude/zf2Logger",
+    "name" : "eddiejaoude/Zf2Logger",
     "description" : "Zend Framework 2 Logger - request & response log",
     "type" : "library",
     "authors" : [{
