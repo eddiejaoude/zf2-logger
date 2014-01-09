@@ -1,4 +1,4 @@
-# EddieJaoude\zf2Logger
+# EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
 #### Log incoming Requests &amp; Response data.
