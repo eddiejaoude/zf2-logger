@@ -14,11 +14,22 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
+        // @TODO: suggestion moving to own file /Application/Event/ConfigListener.php?
+        $eventManager->attach(
+            MvcEvent::EVENT_ROUTE,
+            function ($e) {
+                if (empty($e->getApplication()->getServiceManager()->get('config')['EddieJaoude\Zf2Logger'])) {
+                    throw new \Exception('\'EddieJaoude\Zf2Logger\' Config not available.');
+                }
+            },
+            200
+        );
+
         // @TODO: suggestion moving to own file /Application/Event/RequestListener.php?
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function ($e) {
-                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Zend\Log\Logger');
+                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Logger');
 
                 $logger->debug(
                     print_r(
@@ -39,7 +50,7 @@ class Module
         $eventManager->attach(
             MvcEvent::EVENT_FINISH,
             function ($e) {
-                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Zend\Log\Logger');
+                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Logger');
                 $logger->debug(
                     print_r(
                         array(
@@ -79,8 +90,8 @@ class Module
     {
         return array(
             'factories' => array(
-                'EddieJaoude\Zf2Logger\Zend\Log\Logger' => function ($sm) {
-                    $config = $sm->get('Config')['zf2Logger'];
+                'EddieJaoude\Zf2Logger\Logger' => function ($sm) {
+                    $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
                     $logger = new ZendLogger;
 
                     foreach($config['writers'] as $writer) {
