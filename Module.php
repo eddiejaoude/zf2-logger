@@ -18,7 +18,7 @@ class Module
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function ($e) {
-                $logger = $e->getApplication()->getServiceManager()->get('Zend\Log\Logger');
+                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Zend\Log\Logger');
 
                 $logger->debug(
                     print_r(
@@ -39,7 +39,7 @@ class Module
         $eventManager->attach(
             MvcEvent::EVENT_FINISH,
             function ($e) {
-                $logger = $e->getApplication()->getServiceManager()->get('Zend\Log\Logger');
+                $logger = $e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Zend\Log\Logger');
                 $logger->debug(
                     print_r(
                         array(
@@ -57,6 +57,8 @@ class Module
             },
             -200
         );
+
+        return;
     }
 
     public function getAutoloaderConfig()
@@ -76,20 +78,22 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'Zend\Log\Logger' => function ($sm) {
-                $config = $sm->get('Config')['zf2Logger'];
-                $logger = new ZendLogger;
+            'factories' => array(
+                'EddieJaoude\Zf2Logger\Zend\Log\Logger' => function ($sm) {
+                    $config = $sm->get('Config')['zf2Logger'];
+                    $logger = new ZendLogger;
 
-                foreach($config['writers'] as $writer) {
-                    $writerStream = new $writer['adapter']($writer['options']['path']);
-                    $writerStream->addFilter(
-                        new Priority(\Zend\Log\Logger::DEBUG)
-                    );
-                    $logger->addWriter($writerStream);
-                }
+                    foreach($config['writers'] as $writer) {
+                        $writerStream = new $writer['adapter']($writer['options']['path']);
+                        $writerStream->addFilter(
+                            new Priority(\Zend\Log\Logger::DEBUG)
+                        );
+                        $logger->addWriter($writerStream);
+                    }
 
-                return $logger;
-            },
+                    return $logger;
+                },
+            )
         );
     }
 
