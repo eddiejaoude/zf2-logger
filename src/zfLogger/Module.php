@@ -1,12 +1,4 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace EddieJaoude\Zf2Logger;
 
 use Zend\Log\Filter\Priority;
@@ -70,7 +62,7 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return include __DIR__ . '/config/zf2Logger.config.php';
     }
 
     public function getAutoloaderConfig()
@@ -90,22 +82,16 @@ class Module
     public function getServiceConfig()
     {
         return array(
-                'Event\Logger'                                   => function ($sm) {
-                        $log = $sm->get('Zend\Log\Logger');
-                        $listener    = new EventLogger($log);
+            'Zend\Log\Logger' => function ($sm) {
+                $config = $sm->get('Config')['logger'];
+                $logger = new ZendLogger;
 
-                        return $listener;
-                    },
-                'Zend\Log\Logger'                                   => function ($sm) {
-                        $config = $sm->get('Config')['logger'];
-                        $logger = new ZendLogger;
+                $writerStream = new LogWriter\Stream($config['path']);
+                $writerStream->addFilter(new Priority($config['level']));
+                $logger->addWriter($writerStream);
 
-                        $writerStream = new LogWriter\Stream($config['path']);
-                        $writerStream->addFilter(new Priority($config['level']));
-                        $logger->addWriter($writerStream);
-
-                        return $logger;
-                    },
+                return $logger;
+            },
         );
     }
 
