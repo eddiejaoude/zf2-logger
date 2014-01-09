@@ -3,3 +3,5 @@ LICENSE.txt
 README.txt
 demos/
 extras/documentation
+.idea
+vendor

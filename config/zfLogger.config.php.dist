@@ -1,0 +1,13 @@
+<?php
+return array(
+    'zfLogger' => array(
+        'writers' => array(
+            array(
+                'adapter' => 'Zend\Log\Writer\Stream',
+                'options' => array(
+                    'path' => '/tmp/zend-framework.log'
+                )
+            )
+        )
+    )
+);
