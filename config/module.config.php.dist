@@ -1,9 +1,9 @@
 <?php
 return array(
-    'zfLogger' => array(
+    'zf2Logger' => array(
         'writers' => array(
             array(
-                'adapter' => 'Zend\Log\Writer\Stream',
+                'adapter' => '\Zend\Log\Writer\Stream',
                 'options' => array(
                     'path' => '/tmp/zend-framework.log'
                 )

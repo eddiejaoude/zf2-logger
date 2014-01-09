@@ -27,7 +27,7 @@
     },
     "autoload" : {
         "psr-0" : {
-            "EddieJaoude\\Zf2Logger\\" : "src/"
+            "Zf2Logger\\" : "src/"
         }
     }
 }

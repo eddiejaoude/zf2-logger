@@ -1,11 +1,10 @@
 <?php
-namespace EddieJaoude\Zf2Logger;
+namespace Zf2Logger;
 
 use Zend\Log\Filter\Priority;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Log\Logger as ZendLogger;
-use Zend\Log\Writer as LogWriter;
 
 class Module
 {
@@ -62,7 +61,7 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/config/zf2Logger.config.php';
+        return include __DIR__ . '/config/module.config.php';
     }
 
     public function getAutoloaderConfig()
@@ -83,12 +82,16 @@ class Module
     {
         return array(
             'Zend\Log\Logger' => function ($sm) {
-                $config = $sm->get('Config')['logger'];
+                $config = $sm->get('Config')['zf2Logger'];
                 $logger = new ZendLogger;
 
-                $writerStream = new LogWriter\Stream($config['path']);
-                $writerStream->addFilter(new Priority($config['level']));
-                $logger->addWriter($writerStream);
+                foreach($config['writers'] as $writer) {
+                    $writerStream = new $writer['adapter']($writer['options']['path']);
+                    $writerStream->addFilter(
+                        new Priority(\Zend\Log\Logger::DEBUG)
+                    );
+                    $logger->addWriter($writerStream);
+                }
 
                 return $logger;
             },

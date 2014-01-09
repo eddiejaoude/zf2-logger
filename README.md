@@ -16,9 +16,9 @@
     }
 ```
 
-#### 2. Copy config file & update if required (remove .dist)
+#### 2. Create `zf2logger.global.php` in `config/autoload` with configuration
 ```
-    /config/zf2Logger.config.php.dist to /config/zf2Logger.config.php
+    /module.config.php.dist to /config/autoload/zf2Logger.global.php
 ```
 
 #### 3. Add module to application config (/config/application.config.php)
