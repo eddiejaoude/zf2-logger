@@ -13,7 +13,7 @@ use Zend\Stdlib\CallbackHandler;
  *
  * @package Application\Event
  */
-class Request implements ListenerAggregateInterface
+class Response implements ListenerAggregateInterface
 {
 
     /**
@@ -97,7 +97,7 @@ class Request implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->addListener($events->attach(MvcEvent::EVENT_ROUTE, array($this, 'logRequest')));
+        $this->addListener($events->attach(MvcEvent::EVENT_FINISH, array($this, 'logResponse')));
     }
 
     /**
@@ -115,13 +115,16 @@ class Request implements ListenerAggregateInterface
     /**
      * @param EventInterface $event
      */
-    public function logRequest(EventInterface $event)
+    public function logResponse(EventInterface $event)
     {
         $this->getLog()->debug(
             print_r(
                 array(
                     $event->getRequest()->getUri()->getHost() => array(
-                        'Request' => $event->getRequest()->getUri()
+                        'Response' => array(
+                            'statusCode' => $event->getResponse()->getStatusCode(),
+                            'content'    => $event->getResponse()->getContent()
+                        )
                     )
                 )
                 ,
