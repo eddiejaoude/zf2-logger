@@ -28,6 +28,9 @@
     "autoload" : {
         "psr-0" : {
             "Zf2Logger\\" : "src/"
-        }
+        },
+        "classmap": [
+            "Module.php"
+        ]
     }
 }
