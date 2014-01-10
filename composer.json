@@ -29,7 +29,7 @@
         "zendframework/zendframework": "2.2.*"
     },
     "autoload" : {
-        "psr-0" : {
+        "psr-4" : {
             "EddieJaoude\\Zf2Logger\\" : "src/"
         },
         "classmap": [
