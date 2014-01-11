@@ -36,6 +36,8 @@ Then you are good to go. All requests & responses will be logged.
 
 ## Example output
 
+Each output includes & is prepended with the host - this is especially useful when working with multi layer/tier architecture. As these can all write to the same output in the stack execution order or alternatively to different outputs.
+
 ### Request
 
 ```
