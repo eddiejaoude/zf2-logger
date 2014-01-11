@@ -18,7 +18,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->instance = new Module();
     }
 
-    public function testParametersBag()
+    public function testInstance()
     {
         $this->assertInstanceOf('\EddieJaoude\Zf2Logger\Module', $this->instance);
     }
