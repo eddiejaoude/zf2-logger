@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/eddiejaoude/zf2Logger.png)](https://travis-ci.org/eddiejaoude/zf2Logger)
+
 # EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
