@@ -3,6 +3,11 @@ namespace EddieJaoude\Zf2Logger\Tests\Zf2LoggerTest;
 
 use EddieJaoude\Zf2Logger\Module;
 
+/**
+ * Class ModuleTest
+ *
+ * @package EddieJaoude\Zf2Logger\Tests\Zf2LoggerTest
+ */
 class ModuleTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -10,12 +15,11 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-//        $this->instance = new Module();
+        $this->instance = new Module();
     }
 
     public function testParametersBag()
     {
-        $this->assertTrue(true);
-//        $this->assertInstanceOf('\EddieJaoude\Zf2Logger\Module', $this->instance);
+        $this->assertInstanceOf('\EddieJaoude\Zf2Logger\Module', $this->instance);
     }
 }

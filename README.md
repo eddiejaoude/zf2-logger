@@ -5,7 +5,7 @@
 #### Zend Framework 2 Event Logger.
 #### Log incoming Requests &amp; Response data with host name.
 
-Below you can see request/response examples,
+Below you can see request/response examples.
 
 ---
 
