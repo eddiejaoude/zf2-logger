@@ -1,5 +1,5 @@
 <?php
-namespace Zf2Logger;
+namespace EddieJaoude\Zf2Logger;
 
 use Zend\Log\Filter\Priority;
 use Zend\Mvc\ModuleRouteListener;
