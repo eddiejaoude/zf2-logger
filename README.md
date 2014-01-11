@@ -1,7 +1,9 @@
 # EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
-#### Log incoming Requests &amp; Response data.
+#### Log incoming Requests &amp; Response data with host name.
+
+Below you can see request/response examples,
 
 ---
 
@@ -36,7 +38,7 @@ Then you are good to go. All requests & responses will be logged.
 
 ## Example output
 
-Each output includes & is prepended with the host - this is especially useful when working with multi layer/tier architecture. As these can all write to the same output in the stack execution order or alternatively to different outputs.
+Each output includes & is prepended with the host - this is especially useful when working with multi layer/tier architecture, i.e. F/E (UI) -> B/E (API). As these can all write to the same output in the stack execution order or alternatively to different outputs.
 
 ### Request
 
@@ -80,6 +82,34 @@ Each output includes & is prepended with the host - this is especially useful wh
         )
 )
 ```
+
+---
+
+## The way it works
+
+In `Module.php` in the `onBootstrap` method the following are added...
+
+```
+$eventManager->attach(
+            MvcEvent::EVENT_ROUTE,
+            function ($e) {
+
+            ...
+
+            },
+        100
+    );
+```
+
+---
+
+## Unit tests
+
+To run unit tests.
+
+```
+
+``
 
 ---
 
