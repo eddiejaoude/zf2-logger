@@ -4,12 +4,12 @@ php:
   - 5.5
 
 before_script:
-  - mkdir -p build/logs
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
 
 script:
-  - phpunit -c ./tests/
+  - mkdir -p build/logs
+  - phpunit -c ./tests/phpunit.xml
 
 after_script:
   - php vendor/bin/coveralls -v
