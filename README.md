@@ -21,7 +21,7 @@ Below you can see request/response examples.
     }
 ```
 
-#### 2. Create `zf2Logger.global.php` in `config/autoload` with configuration (/config/module.config.php.dist)
+#### 2. Create *zf2Logger.global.php* in *config/autoload* with configuration (/config/module.config.php.dist)
 ```
     /module.config.php.dist to /config/autoload/zf2Logger.global.php
 ```
@@ -90,7 +90,7 @@ Each output includes & is prepended with the host - this is especially useful wh
 
 ## The way it works
 
-In `Module.php` in the `onBootstrap` method the following are added...
+In *Module.php* in the *onBootstrap* method the following are added...
 
 ```
 $eventManager->attach(
@@ -127,7 +127,7 @@ phpunit -c tests/phpunit.xml
 ## Resources
 
 * Github
-* Packagist
+* Packagist https://packagist.org/packages/eddiejaoude/zf2-logger
 * Zend Framework 2 Modules
 * Travis CI
 * Coveralls
