@@ -23,7 +23,7 @@
 
     <filter>
         <whitelist>
-            <file>Module.php</file>
+            <file>../Module.php</file>
         </whitelist>
     </filter>
 </phpunit>
