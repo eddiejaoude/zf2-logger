@@ -111,8 +111,8 @@ $eventManager->attach(
 To run unit tests.
 
 ```
-
-``
+phpunit -c tests/phpunit.xml
+```
 
 ---
 
