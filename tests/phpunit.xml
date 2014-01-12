@@ -20,4 +20,10 @@
     <logging>
         <log type="coverage-clover" target="./build/logs/clover.xml"/>
     </logging>
+
+    <filter>
+        <whitelist>
+            <file>../Module.php</file>
+        </whitelist>
+    </filter>
 </phpunit>

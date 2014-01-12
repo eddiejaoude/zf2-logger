@@ -130,4 +130,5 @@ To run unit tests.
 * Packagist
 * Zend Framework 2 Modules
 * Travis CI
+* Coveralls
 
