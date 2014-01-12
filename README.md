@@ -17,7 +17,7 @@ Below you can see request/response examples.
 #### 1. Add to composer.
 ```
     "require" : {
-        "eddiejaoude/zf2Logger" : "dev-master"
+        "eddiejaoude/zf2-logger" : "dev-master"
     }
 ```
 
