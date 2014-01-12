@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/eddiejaoude/zf2Logger.png)](https://travis-ci.org/eddiejaoude/zf2Logger)
+[![Coverage Status](https://coveralls.io/repos/eddiejaoude/zf2Logger/badge.png)](https://coveralls.io/r/eddiejaoude/zf2Logger)
 
 # EddieJaoude\Zf2Logger
 
