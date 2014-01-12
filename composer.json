@@ -1,5 +1,5 @@
 {
-    "name" : "eddiejaoude/Zf2Logger",
+    "name" : "eddiejaoude/zf2-logger",
     "description" : "Zend Framework 2 Logger - request & response log",
     "type" : "library",
     "authors" : [{
@@ -7,6 +7,7 @@
         "email" : "eddie@jaoudestudios.com"
     }
     ],
+    "license": "MIT",
     "keywords" : [
         "zend",
         "zend framework 2",
