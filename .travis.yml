@@ -9,3 +9,6 @@ before_script:
 
 script:
   - phpunit -c ./tests/
+
+after_script:
+  - php vendor/bin/coveralls -v

@@ -6,3 +6,4 @@ extras/documentation
 .idea
 vendor
 *.swp
+tests/build
