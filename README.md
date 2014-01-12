@@ -126,9 +126,9 @@ phpunit -c tests/phpunit.xml
 
 ## Resources
 
-* Github
+* Github https://github.com/eddiejaoude/zf2-logger
 * Packagist https://packagist.org/packages/eddiejaoude/zf2-logger
-* Zend Framework 2 Modules
-* Travis CI
-* Coveralls
+* Zend Framework 2 Modules http://modules.zendframework.com/eddiejaoude/zf2-logger
+* Travis CI https://travis-ci.org/eddiejaoude/zf2-logger
+* Coveralls https://coveralls.io/r/eddiejaoude/zf2-logger
 
