@@ -2,6 +2,7 @@
 namespace EddieJaoude\Zf2Logger\Tests\Zf2LoggerTest;
 
 use EddieJaoude\Zf2Logger\Module;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Class ModuleTest
@@ -40,5 +41,16 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('factories', $response));
         $this->assertTrue(array_key_exists('EddieJaoude\Zf2Logger\Logger', $response['factories']));
         $this->assertTrue(is_callable($response['factories']['EddieJaoude\Zf2Logger\Logger']));
+    }
+
+    public function testOnBootstrap()
+    {
+        $this->markTestIncomplete('Requires mocks');
+
+        $mvcEvent = new MvcEvent();
+
+        $response = $this->instance->onBootstrap($mvcEvent);
+
+        var_dump($response); exit;
     }
 }
