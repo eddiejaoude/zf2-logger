@@ -46,13 +46,13 @@ class Bootstrap
                 'module_paths' => $zf2ModulePaths,
             ),
             'modules' => array(
-//                'EddieJaoude\Zf2Logger'
+                'EddieJaoude\Zf2Logger'
             )
         );
 
         $serviceManager = new ServiceManager(new ServiceManagerConfig());
         $serviceManager->setService('ApplicationConfig', $config);
-        $serviceManager->get('ModuleManager')->loadModules();
+//        $serviceManager->get('ModuleManager')->loadModules();
         static::$serviceManager = $serviceManager;
 
     }
