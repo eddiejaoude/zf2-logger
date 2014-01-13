@@ -2,6 +2,7 @@
 namespace EddieJaoude\Zf2Logger\Tests\Zf2LoggerTest;
 
 use EddieJaoude\Zf2Logger\Module;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Class ModuleTest
@@ -55,6 +56,8 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $mvcEvent->shouldReceive('getEventManager')
             ->andReturn($eventManager);
 
-        $response = $this->instance->onBootstrap($mvcEvent);
+        $this->instance->onBootstrap($mvcEvent);
+
+        $this->assertEquals(array('route', 'finish'), $eventManager->getEvents());
     }
 }
