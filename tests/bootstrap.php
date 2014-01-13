@@ -46,7 +46,7 @@ class Bootstrap
                 'module_paths' => $zf2ModulePaths,
             ),
             'modules' => array(
-                'EddieJaoude\Zf2Logger'
+//                'EddieJaoude\Zf2Logger'
             )
         );
 
