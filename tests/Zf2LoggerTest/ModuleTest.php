@@ -2,7 +2,6 @@
 namespace EddieJaoude\Zf2Logger\Tests\Zf2LoggerTest;
 
 use EddieJaoude\Zf2Logger\Module;
-use Zend\Mvc\MvcEvent;
 
 /**
  * Class ModuleTest
@@ -45,12 +44,17 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     public function testOnBootstrap()
     {
-        $this->markTestIncomplete('Requires mocks');
+        $mvcEvent = \Mockery::mock('Zend\Mvc\MvcEvent')->shouldDeferMissing();
+        $mvcEvent->shouldReceive('getApplication')
+            ->andReturn(\Mockery::self());
 
-        $mvcEvent = new MvcEvent();
+        $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
+        $mvcEvent->shouldReceive('getApplication')
+            ->andReturn(\Mockery::self());
+
+        $mvcEvent->shouldReceive('getEventManager')
+            ->andReturn($eventManager);
 
         $response = $this->instance->onBootstrap($mvcEvent);
-
-        var_dump($response); exit;
     }
 }
