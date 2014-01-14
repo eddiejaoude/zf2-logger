@@ -17,7 +17,7 @@ class Request implements ListenerAggregateInterface
 {
 
     /**
-     * @var array
+     * @var Log
      */
     protected $log;
 

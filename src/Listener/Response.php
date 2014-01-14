@@ -17,7 +17,7 @@ class Response implements ListenerAggregateInterface
 {
 
     /**
-     * @var array
+     * @var Log
      */
     protected $log;
 
