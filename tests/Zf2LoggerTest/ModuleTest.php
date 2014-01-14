@@ -49,6 +49,15 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $mvcEvent->shouldReceive('getApplication')
             ->andReturn(\Mockery::self());
 
+        $mvcEvent->shouldReceive('getServiceManager')
+            ->andReturn(\Mockery::self());
+
+        $logger = \Mockery::mock('Zend\Log\Logger');
+
+        $mvcEvent->shouldReceive('get')
+        ->with('EddieJaoude\Zf2Logger\Logger')
+            ->andReturn($logger);
+
         $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
         $mvcEvent->shouldReceive('getApplication')
             ->andReturn(\Mockery::self());
