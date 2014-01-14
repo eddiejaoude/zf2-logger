@@ -45,22 +45,23 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     public function testOnBootstrap()
     {
-        $mvcEvent = \Mockery::mock('Zend\Mvc\MvcEvent')->shouldDeferMissing();
+        $mvcEvent = \Mockery::mock('Zend\Mvc\MvcEvent');
         $mvcEvent->shouldReceive('getApplication')
             ->andReturn(\Mockery::self());
 
         $mvcEvent->shouldReceive('getServiceManager')
             ->andReturn(\Mockery::self());
 
-        $logger = \Mockery::mock('Zend\Log\Logger');
+        $writer = new \Zend\Log\Writer\Mock;
+
+        $logger = new \Zend\Log\Logger;
+        $logger->addWriter($writer);
 
         $mvcEvent->shouldReceive('get')
         ->with('EddieJaoude\Zf2Logger\Logger')
             ->andReturn($logger);
 
         $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
-        $mvcEvent->shouldReceive('getApplication')
-            ->andReturn(\Mockery::self());
 
         $mvcEvent->shouldReceive('getEventManager')
             ->andReturn($eventManager);
