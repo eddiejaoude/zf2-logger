@@ -73,4 +73,16 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->instance->removeListener(0));
         $this->assertEquals(0, count($this->instance->getListeners()));
     }
+
+    public function testAttachDettach()
+    {
+        $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
+        $this->instance->attach($eventManager);
+
+        $this->assertEquals(1, count($this->instance->getListeners()));
+
+        $this->instance->detach($eventManager);
+
+        $this->assertEquals(0, count($this->instance->getListeners()));
+    }
 }
