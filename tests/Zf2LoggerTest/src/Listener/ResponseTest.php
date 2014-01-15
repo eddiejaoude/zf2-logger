@@ -22,12 +22,17 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
      */
     private $logger;
 
+    /**
+     * @var \Zend\Log\Writer\Mock
+     */
+    private $writer;
+
     public function  setUp()
     {
-        $writer = new \Zend\Log\Writer\Mock;
+        $this->writer = new \Zend\Log\Writer\Mock;
 
         $this->logger = new \Zend\Log\Logger;
-        $this->logger->addWriter($writer);
+        $this->logger->addWriter($this->writer);
 
         $this->instance = new Response($this->logger);
     }
@@ -84,5 +89,41 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->instance->detach($eventManager);
 
         $this->assertEquals(0, count($this->instance->getListeners()));
+    }
+
+    public function testLogResponse()
+    {
+        $this->instance->setLog($this->logger);
+
+        $eventManager = \Mockery::mock('Zend\EventManager\Event')->shouldDeferMissing();
+        $eventManager->shouldReceive('getRequest')
+            ->andReturn(\Mockery::self());
+        $eventManager->shouldReceive('getUri')
+            ->andReturn(\Mockery::self());
+        $eventManager->shouldReceive('getHost')
+            ->andReturn('mock.host');
+
+        $eventManager->shouldReceive('getResponse')
+            ->andReturn(\Mockery::self());
+        $eventManager->shouldReceive('getStatusCode')
+            ->andReturn('200');
+        $eventManager->shouldReceive('getContent')
+            ->andReturn(
+                json_encode(
+                    array(
+                        'user' => array(
+                            'id' => 123,
+                            'name' => 'Test me',
+                        )
+                    )
+                )
+            );
+
+        $this->instance->logResponse($eventManager);
+
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'mock.host')));
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], '200')));
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], '123')));
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'Test me')));
     }
 }

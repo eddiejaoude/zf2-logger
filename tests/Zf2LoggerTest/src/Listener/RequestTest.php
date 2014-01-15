@@ -22,12 +22,17 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     private $logger;
 
+    /**
+     * @var \Zend\Log\Writer\Mock
+     */
+    private $writer;
+
     public function  setUp()
     {
-        $writer = new \Zend\Log\Writer\Mock;
+        $this->writer = new \Zend\Log\Writer\Mock;
 
         $this->logger = new \Zend\Log\Logger;
-        $this->logger->addWriter($writer);
+        $this->logger->addWriter($this->writer);
 
         $this->instance = new Request($this->logger);
     }
@@ -86,4 +91,20 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($this->instance->getListeners()));
     }
 
+    public function testLogRequest()
+    {
+        $this->instance->setLog($this->logger);
+
+        $eventManager = \Mockery::mock('Zend\EventManager\Event')->shouldDeferMissing();
+        $eventManager->shouldReceive('getRequest')
+            ->andReturn(\Mockery::self());
+        $eventManager->shouldReceive('getUri')
+            ->andReturn(\Mockery::self());
+        $eventManager->shouldReceive('getHost')
+            ->andReturn('mock.host');
+
+        $this->instance->logRequest($eventManager);
+
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'mock.host')));
+    }
 }
