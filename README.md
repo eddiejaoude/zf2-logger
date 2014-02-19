@@ -23,10 +23,10 @@ Below you can see request/response examples.
     }
 ```
 
-#### 2. Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
+#### 2. [OPTIONAL] Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
 
 ```
-    /module.config.php.dist to /config/autoload/zf2Logger.global.php
+    /module.config.php to /config/autoload/zf2Logger.global.php
 ```
 
 #### 3. Add module to application config (/config/application.config.php)
