@@ -19,7 +19,7 @@
 
 ```
     "require" : {
-        "eddiejaoude/zf2-logger" : "v0.1"
+        "eddiejaoude/zf2-logger" : "0.2"
     }
 ```
 
