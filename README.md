@@ -5,9 +5,9 @@
 # EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
-#### Log incoming Requests &amp; Response data with host name.
-
-Below you can see request/response examples.
+#### Log incoming Requests &amp; Response data with host name
+#### Manually log your application information with priorities (i.e. emerg..debug)
+#### Change your logging output via config without changing code
 
 ---
 
@@ -31,15 +31,15 @@ Below you can see request/response examples.
 
 #### 3. Add module to application config (/config/application.config.php)
 
-```
-   ...
+```PHP
+   //...
    'modules' => array(
         'EddieJaoude\Zf2Logger',
    ),
-   ...
+   //...
 ```
 
-Then you are good to go. All requests & responses will be logged.
+Then you are good to go. Logging READY! All requests & responses will be logged automatically as ```DEBUG```
 
 ---
 
@@ -55,10 +55,10 @@ As the ```Zend\Log\Logger``` is returned from the Service call, one can use the 
 * info   // Informational: informational messages
 * debug  // Debug: debug messages
 
-```
-    ...
+```PHP
+    //...
     $serviceLocator->get('EddieJaoude\Zf2Logger')->emerg('Emergency message');
-    ...
+    //...
 ```
 
 ---
@@ -70,44 +70,87 @@ Each output includes & is prepended with the host - this is especially useful wh
 ### Request (priority DEBUG)
 
 ```
-2014-01-09T16:28:23+00:00 DEBUG (7): Array
-(
-    [zf2.local] => Array
-        (
-            [Request] => Zend\Uri\Http Object
-                (
-                    [validHostTypes:protected] => 19
-                    [user:protected] =>
-                    [password:protected] =>
-                    [scheme:protected] => http
-                    [userInfo:protected] =>
-                    [host:protected] => zf2.local
-                    [port:protected] =>
-                    [path:protected] => /api/user
-                    [query:protected] =>
-                    [fragment:protected] =>
-                )
+    2014-01-09T16:28:23+00:00 DEBUG (7): Array
+    (
+        [zf2.local] => Array
+            (
+                [Request] => Zend\Uri\Http Object
+                    (
+                        [validHostTypes:protected] => 19
+                        [user:protected] =>
+                        [password:protected] =>
+                        [scheme:protected] => http
+                        [userInfo:protected] =>
+                        [host:protected] => zf2.local
+                        [port:protected] =>
+                        [path:protected] => /api/user
+                        [query:protected] =>
+                        [fragment:protected] =>
+                    )
 
-        )
+            )
 
-)
+    )
 ```
 
 ### Response (priority DEBUG)
 
 ```
-2014-01-09T16:28:24+00:00 DEBUG (7): Array
-(
-    [zf2.local] => Array
-        (
-            [Response] => Array
-                (
-                    [statusCode] => 200
-                    [content] => {"total":2,"data":[{"id":"12345 ...
-                    ...
+    2014-01-09T16:28:24+00:00 DEBUG (7): Array
+    (
+        [zf2.local] => Array
+            (
+                [Response] => Array
+                    (
+                        [statusCode] => 200
+                        [content] => {"total":2,"data":[{"id":"12345 ...
+                        ...
+                    )
+            )
+    )
+```
+
+---
+
+## Configuration (config)
+
+```PHP
+    return array(
+        'EddieJaoude\Zf2Logger' => array(
+
+            // will add the $logger object before the current PHP error handler
+            'registerErrorHandler'     => 'true', // errors logged to your writers
+            'registerExceptionHandler' => 'true', // exceptions logged to your writers
+
+            // multiple zend writer output & zend priority filters
+            'writers' => array(
+                array(
+                    'adapter'  => '\Zend\Log\Writer\Stream',
+                    'options'  => array(
+                        'output' => 'data/application.log', // path to file
+                    ),
+                    'filter' => 'DEBUG', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'disabled' => false
+                ),
+                array(
+                    'adapter'  => '\Zend\Log\Writer\Stream',
+                    'options'  => array(
+                        'output' => 'php://output'
+                    ),
+                    'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'disabled' => false
+                ),
+                array(
+                    'adapter'  => '\Zend\Log\Writer\Stream',
+                    'options'  => array(
+                        'output' => 'php://stderr'
+                    ),
+                    'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'disabled' => false
                 )
+            )
         )
-)
+    );
 ```
 
 ---
@@ -116,12 +159,12 @@ Each output includes & is prepended with the host - this is especially useful wh
 
 In ```Module.php``` in the ```onBootstrap``` method the following are added...
 
-```
-$eventManager->attach(
+```PHP
+    $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function ($e) {
 
-            ...
+            //...
 
             },
         100
