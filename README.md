@@ -16,18 +16,21 @@ Below you can see request/response examples.
 ### Steps 
 
 #### 1. Add to composer.
+
 ```
     "require" : {
         "eddiejaoude/zf2-logger" : "v0.1"
     }
 ```
 
-#### 2. Create *zf2Logger.global.php* in *config/autoload* with configuration (/config/module.config.php.dist)
+#### 2. Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
+
 ```
     /module.config.php.dist to /config/autoload/zf2Logger.global.php
 ```
 
 #### 3. Add module to application config (/config/application.config.php)
+
 ```
    ...
    'modules' => array(
@@ -40,11 +43,31 @@ Then you are good to go. All requests & responses will be logged.
 
 ---
 
-## Example output
+## Example usage of manual logging & prority
+
+As the ```Zend\Log\Logger``` is returned from the Service call, one can use the methods:
+* emerg  // Emergency: system is unusable
+* alert  // Alert: action must be taken immediately
+* crit   // Critical: critical conditions
+* err    // Error: error conditions
+* warn   // Warning: warning conditions
+* notice // Notice: normal but significant condition
+* info   // Informational: informational messages
+* debug  // Debug: debug messages
+
+```
+    ...
+    $serviceLocator->get('EddieJaoude\Zf2Logger')->emerg('Emergency message');
+    ...
+```
+
+---
+
+## Example - built in logging
 
 Each output includes & is prepended with the host - this is especially useful when working with multi layer/tier architecture, i.e. F/E (UI) -> B/E (API). As these can all write to the same output in the stack execution order or alternatively to different outputs.
 
-### Request
+### Request (priority DEBUG)
 
 ```
 2014-01-09T16:28:23+00:00 DEBUG (7): Array
@@ -70,7 +93,7 @@ Each output includes & is prepended with the host - this is especially useful wh
 )
 ```
 
-### Response
+### Response (priority DEBUG)
 
 ```
 2014-01-09T16:28:24+00:00 DEBUG (7): Array
@@ -91,7 +114,7 @@ Each output includes & is prepended with the host - this is especially useful wh
 
 ## The way it works
 
-In *Module.php* in the *onBootstrap* method the following are added...
+In ```Module.php``` in the ```onBootstrap``` method the following are added...
 
 ```
 $eventManager->attach(
@@ -109,19 +132,26 @@ $eventManager->attach(
 
 ## Unit tests
 
-To run unit tests.
+To run unit tests (from root diectory)
 
 ```
-phpunit -c tests/phpunit.xml
+vendor/bin/phpunit -c tests/phpunit.xml
 ```
 
 ---
 
 ## What Next...
 
-* Additional outputs, same as Zend\Logger
 * Additional events
-* Filtering
+
+Ideas & requirements welcome.
+
+---
+
+## Contributing
+
+* Discussions from Ideas & Discussions to Pull Requests
+* Pull requests with Unit tests
 
 ---
 

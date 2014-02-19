@@ -39,8 +39,8 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $response = $this->instance->getServiceConfig();
 
         $this->assertTrue(array_key_exists('factories', $response));
-        $this->assertTrue(array_key_exists('EddieJaoude\Zf2Logger\Logger', $response['factories']));
-        $this->assertTrue(is_callable($response['factories']['EddieJaoude\Zf2Logger\Logger']));
+        $this->assertTrue(array_key_exists('EddieJaoude\Zf2Logger', $response['factories']));
+        $this->assertTrue(is_callable($response['factories']['EddieJaoude\Zf2Logger']));
     }
 
     public function testOnBootstrap()
@@ -58,7 +58,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $logger->addWriter($writer);
 
         $mvcEvent->shouldReceive('get')
-        ->with('EddieJaoude\Zf2Logger\Logger')
+        ->with('EddieJaoude\Zf2Logger')
             ->andReturn($logger);
 
         $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();

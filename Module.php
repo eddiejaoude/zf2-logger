@@ -17,11 +17,11 @@ class Module
         $moduleRouteListener->attach($eventManager);
 
         $eventManager->attach(
-            new Request($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Logger'))
+            new Request($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'))
         );
 
         $eventManager->attach(
-            new Response($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger\Logger'))
+            new Response($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'))
         );
 
         return;
@@ -45,17 +45,21 @@ class Module
     {
         return array(
             'factories' => array(
-                'EddieJaoude\Zf2Logger\Logger' => function ($sm) {
+                'EddieJaoude\Zf2Logger' => function ($sm) {
                         $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
                         $logger = new ZendLogger;
 
-                        foreach($config['writers'] as $writer) {
-                            $writerStream = new $writer['adapter']($writer['options']['path']);
-                            $writerStream->addFilter(
-                                new Priority(\Zend\Log\Logger::DEBUG)
-                            );
-                            $logger->addWriter($writerStream);
+                        foreach ($config['writers'] as $writer) {
+                            if ($writer['disabled'] == false) {
+                                $writerAdapter = new $writer['adapter']($writer['options']['output']);
+                                $logger->addWriter($writerAdapter);
+
+                                !empty($writer['filter']) ? : $writerAdapter->addFilter(Priority(Logger::$writer['filter']));
+                            }
                         }
+
+                        !$config['registerErrorHandler'] ? : ZendLogger::registerErrorHandler($logger);
+                        !$config['registerExceptionHandler'] ? : ZendLogger::registerExceptionHandler($logger);
 
                         return $logger;
                     },
