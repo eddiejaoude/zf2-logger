@@ -13,7 +13,7 @@ return array(
                 'options'  => array(
                     'output' => 'data/application.log', // path to file
                 ),
-                'filter' => 'DEBUG', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                'filter' => \Zend\Log\Logger::DEBUG, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                 'disabled' => false
             ),
             array(
@@ -21,7 +21,7 @@ return array(
                 'options'  => array(
                     'output' => 'php://output'
                 ),
-                'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                 'disabled' => false
             ),
             array(
@@ -29,7 +29,7 @@ return array(
                 'options'  => array(
                     'output' => 'php://stderr'
                 ),
-                'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                 'disabled' => false
             )
         )

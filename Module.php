@@ -54,7 +54,11 @@ class Module
                                 $writerAdapter = new $writer['adapter']($writer['options']['output']);
                                 $logger->addWriter($writerAdapter);
 
-                                !empty($writer['filter']) ? : $writerAdapter->addFilter(Priority(Logger::$writer['filter']));
+                                $writerAdapter->addFilter(
+                                    new Priority(
+                                        $writer['filter']
+                                    )
+                                );
                             }
                         }
 
