@@ -23,7 +23,7 @@
     }
 ```
 
-#### 2. [OPTIONAL] Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
+#### 2. Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
 
 ```
     /module.config.php to /config/autoload/zf2Logger.global.php
