@@ -129,7 +129,7 @@ Each output includes & is prepended with the host - this is especially useful wh
                     'options'  => array(
                         'output' => 'data/application.log', // path to file
                     ),
-                    'filter' => 'DEBUG', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::DEBUG, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                     'disabled' => false
                 ),
                 array(
@@ -137,7 +137,7 @@ Each output includes & is prepended with the host - this is especially useful wh
                     'options'  => array(
                         'output' => 'php://output'
                     ),
-                    'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                     'disabled' => false
                 ),
                 array(
@@ -145,30 +145,13 @@ Each output includes & is prepended with the host - this is especially useful wh
                     'options'  => array(
                         'output' => 'php://stderr'
                     ),
-                    'filter' => 'NOTICE', // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
                     'disabled' => false
                 )
             )
         )
     );
-```
 
----
-
-## The way it works
-
-In ```Module.php``` in the ```onBootstrap``` method the following are added...
-
-```PHP
-    $eventManager->attach(
-            MvcEvent::EVENT_ROUTE,
-            function ($e) {
-
-            //...
-
-            },
-        100
-    );
 ```
 
 ---
