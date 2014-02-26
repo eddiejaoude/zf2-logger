@@ -49,8 +49,9 @@ class Module
                         $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
                         $logger = new ZendLogger;
 
+                        $writers = 0;
                         foreach ($config['writers'] as $writer) {
-                            if ($writer['disabled'] == false) {
+                            if ($writer['enabled']) {
                                 $writerAdapter = new $writer['adapter']($writer['options']['output']);
                                 $logger->addWriter($writerAdapter);
 
@@ -59,11 +60,14 @@ class Module
                                         $writer['filter']
                                     )
                                 );
+                                $writers++;
                             }
                         }
 
                         !$config['registerErrorHandler'] ? : ZendLogger::registerErrorHandler($logger);
                         !$config['registerExceptionHandler'] ? : ZendLogger::registerExceptionHandler($logger);
+
+                        $writers > 0 ?: $logger->addWriter(new \Zend\Log\Writer\Null);
 
                         return $logger;
                     },
