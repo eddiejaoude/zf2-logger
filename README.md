@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/eddiejaoude/zf2-logger.png)](https://travis-ci.org/eddiejaoude/zf2-logger)
 [![Coverage Status](https://coveralls.io/repos/eddiejaoude/zf2-logger/badge.png?branch=master)](https://coveralls.io/r/eddiejaoude/zf2-logger?branch=master)
 [![Total Downloads](https://poser.pugx.org/eddiejaoude/zf2-logger/downloads.png)](https://packagist.org/packages/eddiejaoude/zf2-logger)
+[![Dependency Status](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2/badge.png)](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2)
 
 # EddieJaoude\Zf2Logger
 
