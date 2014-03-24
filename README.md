@@ -25,7 +25,7 @@
     }
 ```
 
-#### 2. Create ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
+#### 2. [OPTIONAL] To override or add additional configuration create the file ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
 
 ```
     /module.config.php to /config/autoload/zf2Logger.global.php
@@ -126,28 +126,40 @@ Each output includes & is prepended with the host - this is especially useful wh
 
             // multiple zend writer output & zend priority filters
             'writers' => array(
-                array(
+                'standard-file' => array(
                     'adapter'  => '\Zend\Log\Writer\Stream',
                     'options'  => array(
                         'output' => 'data/application.log', // path to file
                     ),
-                    'filter' => \Zend\Log\Logger::DEBUG, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::DEBUG,
+                    'enabled' => true
+                ),
+                'tmp-file' => array(
+                    'adapter'  => '\Zend\Log\Writer\Stream',
+                    'options'  => array(
+                        'output' => '/tmp/application-' . $_SERVER['SERVER_NAME'] . '.log', // path to file
+                    ),
+                    // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::DEBUG,
                     'enabled' => false
                 ),
-                array(
+                'standard-output' => array(
                     'adapter'  => '\Zend\Log\Writer\Stream',
                     'options'  => array(
                         'output' => 'php://output'
                     ),
-                    'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
-                    'enabled' => false
+                    // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::NOTICE,
+                    'enabled' => $_SERVER['APPLICATION_ENV'] == 'development' ? true : false
                 ),
-                array(
+                'standard-error' => array(
                     'adapter'  => '\Zend\Log\Writer\Stream',
                     'options'  => array(
                         'output' => 'php://stderr'
                     ),
-                    'filter' => \Zend\Log\Logger::NOTICE, // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    // options: EMERG, ALERT, CRIT, ERR, WARN, NOTICE, INFO, DEBUG
+                    'filter' => \Zend\Log\Logger::NOTICE,
                     'enabled' => true
                 )
             )
