@@ -63,6 +63,28 @@ As the ```Zend\Log\Logger``` is returned from the Service call, one can use the 
     //...
 ```
 
+### Use an alias for decoupling
+
+Instead of using `EddieJaoude\Zf2Logger` in your code, put an `Alias` in your service manager, therefore allowing you to swap out different logger libraries later on without modifying your code & usage.
+
+i.e.
+```
+    //...
+    'aliases'    => array(
+        // alias used, so can be swapped out later without changing any code
+        'Logger' => 'EddieJaoude\Zf2Logger'
+    ),
+    //...
+```
+
+Then your usage in your code becomes...
+
+```PHP
+    //...
+    $serviceLocator->get('Logger')->emerg('Emergency message');
+    //...
+```
+
 ---
 
 ## Example - built in logging
