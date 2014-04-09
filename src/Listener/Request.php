@@ -117,16 +117,18 @@ class Request implements ListenerAggregateInterface
      */
     public function logRequest(EventInterface $event)
     {
-        $this->getLog()->debug(
-            print_r(
-                array(
-                    $event->getRequest()->getUri()->getHost() => array(
-                        'Request' => $event->getRequest()->getUri()
+        if ($event->getRequest() instanceOf \Zend\Http\PhpEnvironment\Request) {
+            $this->getLog()->debug(
+                print_r(
+                    array(
+                        $event->getRequest()->getUri()->getHost() => array(
+                            'Request' => $event->getRequest()->getUri()
+                        )
                     )
+                    ,
+                    true
                 )
-                ,
-                true
-            )
-        );
+            );
+        }
     }
 }

@@ -118,20 +118,22 @@ class Response implements ListenerAggregateInterface
      */
     public function logResponse(EventInterface $event)
     {
-        $this->getLog()->debug(
-            print_r(
-                array(
-                    $event->getRequest()->getUri()->getHost() => array(
-                        'Response' => array(
-                            'statusCode' => $event->getResponse()->getStatusCode(),
-                            'content'    => $event->getResponse()->getContent()
+        if ($event->getRequest() instanceOf \Zend\Http\PhpEnvironment\Request) {
+            $this->getLog()->debug(
+                print_r(
+                    array(
+                        $event->getRequest()->getUri()->getHost() => array(
+                            'Response' => array(
+                                'statusCode' => $event->getResponse()->getStatusCode(),
+                                'content'    => $event->getResponse()->getContent()
+                            )
                         )
                     )
+                    ,
+                    true
                 )
-                ,
-                true
-            )
-        );
+            );
+        }
     }
 
     /**
