@@ -66,8 +66,6 @@ class Module
                         $writers = 0;
                         foreach ($config['writers'] as $writer) {
                             if ($writer['enabled']) {
-                                !is_writeable($writer['options']['output'])?:
-                                    file_put_contents($writer['options']['output'], 'Created file...');
                                 $writerAdapter = new $writer['adapter']($writer['options']['output']);
                                 $logger->addWriter($writerAdapter);
 
