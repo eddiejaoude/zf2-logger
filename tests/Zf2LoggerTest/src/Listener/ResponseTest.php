@@ -95,13 +95,15 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     {
         $this->instance->setLog($this->logger);
 
+        $request = \Mockery::mock('Zend\Http\PhpEnvironment\Request');
+        $request->shouldReceive('getUri')
+            ->andReturn(\Mockery::self());
+        $request->shouldReceive('getHost')
+            ->andReturn('mock.host');
+
         $eventManager = \Mockery::mock('Zend\EventManager\Event')->shouldDeferMissing();
         $eventManager->shouldReceive('getRequest')
-            ->andReturn(\Mockery::self());
-        $eventManager->shouldReceive('getUri')
-            ->andReturn(\Mockery::self());
-        $eventManager->shouldReceive('getHost')
-            ->andReturn('mock.host');
+            ->andReturn($request);
 
         $eventManager->shouldReceive('getResponse')
             ->andReturn(\Mockery::self());
