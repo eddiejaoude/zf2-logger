@@ -84,7 +84,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
         $this->instance->attach($eventManager);
 
-        $this->assertEquals(1, count($this->instance->getListeners()));
+        $this->assertEquals(2, count($this->instance->getListeners()));
 
         $this->instance->detach($eventManager);
 

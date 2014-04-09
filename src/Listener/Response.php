@@ -98,6 +98,7 @@ class Response implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events)
     {
         $this->addListener($events->attach(MvcEvent::EVENT_FINISH, array($this, 'logResponse')));
+        $this->addListener($events->attach(MvcEvent::EVENT_FINISH, array($this, 'shutdown'), -1000));
     }
 
     /**
@@ -131,5 +132,15 @@ class Response implements ListenerAggregateInterface
                 true
             )
         );
+    }
+
+    /**
+     * @param EventInterface $event
+     */
+    public function shutdown(EventInterface $event)
+    {
+        foreach($this->getLog()->getWriters() as $writer) {
+            $writer->shutdown();
+        }
     }
 }
