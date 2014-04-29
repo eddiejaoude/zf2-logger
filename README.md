@@ -4,6 +4,10 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2/badge.png)](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/eddiejaoude/zf2-logger/badges/quality-score.png?s=caf5d25d4eb79a84e168cf6836e11ac68518d7c8)](https://scrutinizer-ci.com/g/eddiejaoude/zf2-logger/)
 
+- - - 
+**THIS BRANCH IS NOT STABLE**
+- - -
+
 # EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
