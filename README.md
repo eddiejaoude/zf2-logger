@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/eddiejaoude/zf2-logger.svg?branch=multiple-php-versions)](https://travis-ci.org/eddiejaoude/zf2-logger)
-[![Coverage Status](https://coveralls.io/repos/eddiejaoude/zf2-logger/badge.png?branch=multiple-php-versions)](https://coveralls.io/r/eddiejaoude/zf2-logger?branch=multiple-php-versions)
+[![Build Status](https://travis-ci.org/eddiejaoude/zf2-logger.svg?branch=php5.4)](https://travis-ci.org/eddiejaoude/zf2-logger)
+[![Coverage Status](https://coveralls.io/repos/eddiejaoude/zf2-logger/badge.png?branch=php5.4)](https://coveralls.io/r/eddiejaoude/zf2-logger?branch=php5.4)
 [![Total Downloads](https://poser.pugx.org/eddiejaoude/zf2-logger/downloads.png)](https://packagist.org/packages/eddiejaoude/zf2-logger)
 [![Dependency Status](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2/badge.png)](https://www.versioneye.com/user/projects/531978c3ec1375b69c0009f2)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/eddiejaoude/zf2-logger/badges/quality-score.png?s=caf5d25d4eb79a84e168cf6836e11ac68518d7c8)](https://scrutinizer-ci.com/g/eddiejaoude/zf2-logger/)
