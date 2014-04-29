@@ -10,6 +10,8 @@
 #### Log incoming Requests &amp; Response data with host name
 #### Manually log your application information with priorities (i.e. emerg..debug)
 #### Change your logging output via config without changing code
+#### Multiple logging outputs (i.e. file(s), stdout, stderr etc)
+#### Filter errors to log per environment (i.e production > error, development > debug)
 
 ---
 
