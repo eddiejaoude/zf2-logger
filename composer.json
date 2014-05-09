@@ -30,7 +30,7 @@
     },
     "autoload" : {
         "psr-4" : {
-            "EddieJaoude\\Zf2Logger\\" : "src/"
+            "EddieJaoude\\Zf2Logger\\" : "src/Zf2Logger"
         },
         "classmap": [
             "Module.php"
