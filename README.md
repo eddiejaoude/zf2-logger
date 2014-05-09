@@ -204,6 +204,68 @@ vendor/bin/phpunit -c tests/phpunit.xml
 
 ---
 
+## Example output of Log file
+
+```
+2014-05-08T19:46:43+01:00 DEBUG (7): Array
+(
+    [zf2.be.local] => Array
+        (
+            [Request] => Zend\Uri\Http Object
+                (
+                    [validHostTypes:protected] => 19
+                    [user:protected] =>
+                    [password:protected] =>
+                    [scheme:protected] => http
+                    [userInfo:protected] =>
+                    [host:protected] => zf2.local
+                    [port:protected] => 8080
+                    [path:protected] => /api/ddc
+                    [query:protected] =>
+                    [fragment:protected] =>
+                )
+
+        )
+
+)
+
+2014-05-08T19:46:43+01:00 DEBUG (7): Authorisation Check
+Role: System Admin
+Resource: api-ddc
+Method: post
+IsAllowed: 1
+
+2014-05-08T19:46:43+01:00 DEBUG (7): Authorisation Check
+Role: OPG User
+Resource: api-ddc
+Method: post
+IsAllowed:
+
+2014-05-08T19:46:43+01:00 INFO (6): Import: Starting...
+2014-05-08T19:46:43+01:00 INFO (6): Import: Loaded XML (SET.xsd).
+2014-05-08T19:46:43+01:00 INFO (6): Import: Found XSD SET.xsd (module/Ddc/src/Ddc/Validator/SET.xsd)
+2014-05-08T19:46:43+01:00 INFO (6): Import: Validated XML (SET.xsd).
+2014-05-08T19:46:43+01:00 INFO (6): Import: Loaded XML (LPA002.xsd).
+2014-05-08T19:46:43+01:00 INFO (6): Import: Found XSD LPA002.xsd (module/Ddc/src/Ddc/Validator/LPA002.xsd)
+2014-05-08T19:46:43+01:00 INFO (6): Import: Validated XML (LPA002.xsd).
+2014-05-08T19:46:43+01:00 INFO (6): Import: Failed. 'P1 DOB' was not in the expected format d/m/Y H:i:s
+2014-05-08T19:46:43+01:00 DEBUG (7): Array
+(
+    [zf2.local] => Array
+        (
+            [Response] => Array
+                (
+                    [statusCode] => 400
+                    [content] => {"data":{"success":false},"additionalData":null}
+                )
+
+        )
+
+)
+```
+
+---
+
 ## What Next...
 
 * Additional events

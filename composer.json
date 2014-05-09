@@ -16,7 +16,7 @@
         "log"
     ],
     "require" : {
-        "php" : ">=5.5",
+        "php" : ">=5.4",
         "zendframework/zend-log" : "2.3.*",
         "zendframework/zend-di" : "2.3.*",
         "zendframework/zend-eventmanager" : "2.3.*",
