@@ -7,6 +7,7 @@ use Zend\Log\Filter\Priority;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Log\Logger as ZendLogger;
+use EddieJaoude\Zf2Logger\Log\Logger as Zf2Logger;
 
 class Module
 {
@@ -61,7 +62,7 @@ class Module
             'factories' => array(
                 'EddieJaoude\Zf2Logger' => function ($sm) {
                         $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
-                        $logger = new ZendLogger;
+                        $logger = new Zf2Logger();
 
                         $writers = 0;
                         foreach ($config['writers'] as $writer) {
