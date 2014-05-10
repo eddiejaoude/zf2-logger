@@ -26,13 +26,6 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->logger->setAuthenticationService(
             $authenticationService
         );
-
-        $request = \Mockery::mock('Zend\Http\PhpEnvironment\Request');
-        $request->shouldReceive('getUri')->times(1)->andReturn(\Mockery::self());
-        $request->shouldReceive('getHost')->times(1)->andReturn('unit-test-host');
-        $this->logger->setRequest(
-            $request
-        );
     }
 
     public function testSetGetAuthenticationService()
@@ -81,7 +74,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             array(
                 'Zf2Logger' => array(
                     'sessionId' => '',
-                    'host' => 'unit-test-host'
+                    'host' => 'CLI'
                 )
             ),
             $this->logger->getWriters()->current()->events[0]['extra']
@@ -105,7 +98,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             array(
                 'Zf2Logger' => array(
                     'sessionId' => '',
-                    'host' => 'unit-test-host'
+                    'host' => 'CLI'
                 ),
                 $extra
             ),

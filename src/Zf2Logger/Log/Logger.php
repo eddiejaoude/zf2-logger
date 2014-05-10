@@ -35,7 +35,7 @@ class Logger extends ZendLogger
         $customExtra = array(
             'Zf2Logger' => array(
                 'sessionId' => session_id(),
-                'host'      => $_SERVER['HTTP_HOST']
+                'host'      => !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'CLI'
             )
         );
 
