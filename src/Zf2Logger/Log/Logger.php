@@ -35,7 +35,7 @@ class Logger extends ZendLogger
         $customExtra = array(
             'Zf2Logger' => array(
                 'sessionId' => session_id(),
-                'host'      => $this->getRequest()->getUri()->getHost()
+                'host'      => $_SERVER['HTTP_HOST']
             )
         );
 
