@@ -22,6 +22,10 @@ class Logger extends ZendLogger
      */
     private $request;
 
+    /**
+     * @var array
+     */
+    private $customExtra = array();
 
     /**
      * @param int   $priority
@@ -39,7 +43,7 @@ class Logger extends ZendLogger
             )
         );
 
-        return parent::log($priority, $message, array_merge($extra, $customExtra));
+        return parent::log($priority, $message, array_merge($extra, $customExtra, $this->customExtra));
     }
 
     /**
@@ -82,5 +86,23 @@ class Logger extends ZendLogger
         return $this->request;
     }
 
+    /**
+     * @param array $customExtra
+     *
+     * @return Logger
+     */
+    public function setCustomExtra(array $customExtra)
+    {
+        $this->customExtra = $customExtra;
 
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCustomExtra()
+    {
+        return $this->customExtra;
+    }
 }

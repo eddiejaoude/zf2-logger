@@ -81,6 +81,35 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInitialiseExtraAddition()
+    {
+        $message = 'test message';
+        $extra = 'extra additional information for the logger';
+        $initialiseExtra = 'initialise extra additional information for the logger';
+
+        $this->logger->setCustomExtra(array($initialiseExtra));
+
+        $this->assertInstanceOf(
+            'EddieJaoude\Zf2Logger\Log\Logger',
+            $this->logger->log(Logger::DEBUG, $message, array($extra))
+        );
+
+        $this->assertEquals(7, $this->logger->getWriters()->current()->events[0]['priority']);
+        $this->assertEquals('DEBUG', $this->logger->getWriters()->current()->events[0]['priorityName']);
+        $this->assertEquals($message, $this->logger->getWriters()->current()->events[0]['message']);
+        $this->assertEquals(
+            array(
+                'Zf2Logger' => array(
+                    'sessionId' => '',
+                    'host' => 'CLI'
+                ),
+                $extra,
+                $initialiseExtra
+            ),
+            $this->logger->getWriters()->current()->events[0]['extra']
+        );
+    }
+
     public function testExtraAddition()
     {
         $message = 'test message';
