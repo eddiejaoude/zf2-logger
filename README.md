@@ -7,11 +7,12 @@
 # EddieJaoude\Zf2Logger
 
 #### Zend Framework 2 Event Logger.
-#### Log incoming Requests &amp; Response data with host name
-#### Manually log your application information with priorities (i.e. emerg..debug)
-#### Change your logging output via config without changing code
-#### Multiple logging outputs (i.e. file(s), stdout, stderr etc)
-#### Filter errors to log per environment (i.e production > error, development > debug)
+* Log incoming Requests &amp; Response data with host name
+* Manually log your application information with priorities (i.e. emerg..debug)
+* Change your logging output via config without changing code
+* Multiple logging outputs (i.e. file(s), stdout, stderr etc)
+* Filter errors to log per environment (i.e production > error, development > debug)
+* Default log information includes (Session Id, Host, IP)
 
 ---
 
@@ -85,6 +86,44 @@ Then your usage in your code becomes...
     //...
     $serviceLocator->get('Logger')->emerg('Emergency message');
     //...
+```
+
+### Add to default loggin parameters
+
+Additional default logging information includes:
+
+* IP
+* Host
+* Session Id
+
+To log more additional default information, use `$logger->addCustomExtra($extraArray)`. Full example below.
+
+1. Change the `alias` to your new service *(point 2 below)*
+i.e.
+
+```PHP
+    'aliases' => array(
+        // ...
+        'Logger' => 'Zf2Logger',
+        // ...
+    ),
+```
+
+2. Create your new service 
+
+```PHP
+    // ...
+    'Zf2Logger' => function($sm) {
+        $logger = $sm->get('EddieJaoude\Zf2Logger');
+        $logger->addCustomExtra(
+            array(
+                'host' => !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'CLI',
+            )
+        );
+
+        return $logger;
+    },
+    // ...
 ```
 
 ---
