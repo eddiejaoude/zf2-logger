@@ -39,7 +39,8 @@ class Logger extends ZendLogger
         $customExtra = array(
             'Zf2Logger' => array(
                 'sessionId' => session_id(),
-                'host'      => !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'CLI'
+                'host'      => !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'CLI',
+                'ip'        => !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unavailable'
             )
         );
 
@@ -94,6 +95,18 @@ class Logger extends ZendLogger
     public function setCustomExtra(array $customExtra)
     {
         $this->customExtra = $customExtra;
+
+        return $this;
+    }
+
+    /**
+     * @param array $customExtra
+     *
+     * @return Logger
+     */
+    public function addCustomExtra(array $customExtra)
+    {
+        $this->customExtra[] = $customExtra;
 
         return $this;
     }
