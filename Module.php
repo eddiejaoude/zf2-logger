@@ -61,31 +61,31 @@ class Module
         return array(
             'factories' => array(
                 'EddieJaoude\Zf2Logger' => function ($sm) {
-                        $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
-                        $logger = new Zf2Logger();
+                    $config = $sm->get('Config')['EddieJaoude\Zf2Logger'];
+                    $logger = new Zf2Logger();
 
-                        $writers = 0;
-                        foreach ($config['writers'] as $writer) {
-                            if ($writer['enabled']) {
-                                $writerAdapter = new $writer['adapter']($writer['options']['output']);
-                                $logger->addWriter($writerAdapter);
+                    $writers = 0;
+                    foreach ($config['writers'] as $writer) {
+                        if ($writer['enabled']) {
+                            $writerAdapter = new $writer['adapter']($writer['options']['output']);
+                            $logger->addWriter($writerAdapter);
 
-                                $writerAdapter->addFilter(
-                                    new Priority(
-                                        $writer['filter']
-                                    )
-                                );
-                                $writers++;
-                            }
+                            $writerAdapter->addFilter(
+                                new Priority(
+                                    $writer['filter']
+                                )
+                            );
+                            $writers++;
                         }
+                    }
 
-                        !$config['registerErrorHandler'] ? : ZendLogger::registerErrorHandler($logger);
-                        !$config['registerExceptionHandler'] ? : ZendLogger::registerExceptionHandler($logger);
+                    !$config['registerErrorHandler'] ? : ZendLogger::registerErrorHandler($logger);
+                    !$config['registerExceptionHandler'] ? : ZendLogger::registerExceptionHandler($logger);
 
-                        $writers > 0 ?: $logger->addWriter(new \Zend\Log\Writer\Null);
+                    $writers > 0 ? : $logger->addWriter(new \Zend\Log\Writer\Null);
 
-                        return $logger;
-                    },
+                    return $logger;
+                },
             )
         );
     }
