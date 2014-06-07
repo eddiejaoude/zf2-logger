@@ -88,7 +88,7 @@ Then your usage in your code becomes...
     //...
 ```
 
-### Add to default loggin parameters
+### Add to default logging parameters
 
 Additional default logging information includes:
 
