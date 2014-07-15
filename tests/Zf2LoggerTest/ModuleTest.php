@@ -40,7 +40,6 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(array_key_exists('factories', $response));
         $this->assertTrue(array_key_exists('EddieJaoude\Zf2Logger', $response['factories']));
-        $this->assertTrue(is_callable($response['factories']['EddieJaoude\Zf2Logger']));
     }
 
     public function testOnBootstrap()
