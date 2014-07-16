@@ -9,6 +9,17 @@ use EddieJaoude\Zf2Logger\Log\Logger;
 
 class Zf2Logger implements FactoryInterface
 {
+
+    /**
+     * @var  Logger
+     */
+    private $logger;
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
     /**
      * Create service
      *
@@ -18,28 +29,74 @@ class Zf2Logger implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config')['EddieJaoude\Zf2Logger'];
-        $logger = new Logger();
+        $this->logger = new Logger();
 
-        $writers = 0;
-        foreach ($config['writers'] as $writer) {
-            if ($writer['enabled']) {
-                $writerAdapter = new $writer['adapter']($writer['options']['output']);
-                $logger->addWriter($writerAdapter);
+        $this->configuration($config);
+        $this->writerCollection($config);
+        $this->execute();
 
-                $writerAdapter->addFilter(
-                    new Priority(
-                        $writer['filter']
-                    )
-                );
-                $writers++;
+        return $this->logger;
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return int
+     */
+    private function writerCollection(array $config)
+    {
+        if (!empty($config['writers'])) {
+            $writers = 0;
+            foreach ($config['writers'] as $writer) {
+                if ($writer['enabled']) {
+                    $this->writerAdapter( $writer );
+                    $writers ++;
+                }
             }
+
+            return $writers;
         }
+    }
 
-        !$config['registerErrorHandler'] ? : ZendLogger::registerErrorHandler($logger);
-        !$config['registerExceptionHandler'] ? : ZendLogger::registerExceptionHandler($logger);
+    /**
+     * @param array $writer
+     *
+     * @return \Zend\Log\Writer\AbstractWriter
+     */
+    private function writerAdapter(array $writer)
+    {
+        $writerAdapter = new $writer['adapter']($writer['options']['output']);
+        $this->logger->addWriter($writerAdapter);
 
-        $writers > 0 ? : $logger->addWriter(new \Zend\Log\Writer\Null);
+        $writerAdapter->addFilter(
+            new Priority(
+                $writer['filter']
+            )
+        );
 
-        return $logger;
+        return $writerAdapter;
+    }
+
+    /**
+     * @param array $config
+     */
+    private function configuration(array $config)
+    {
+        if (!empty($config['registerErrorHandler'])) {
+            $config['registerErrorHandler'] === false ?: ZendLogger::registerErrorHandler( $this->logger );
+        }
+        if (!empty($config['registerExceptionHandler'])) {
+            $config['registerExceptionHandler'] === false ?: ZendLogger::registerExceptionHandler( $this->logger );
+        }
+    }
+
+    /**
+     * @return ZendLogger
+     */
+    private function execute()
+    {
+        if ($this->logger->getWriters()->count() == 0) {
+            return $this->logger->addWriter(new \Zend\Log\Writer\Null);
+        }
     }
 }
