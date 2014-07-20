@@ -28,7 +28,8 @@ class Zf2Logger implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config')['EddieJaoude\Zf2Logger'];
+        $config = $serviceLocator->get('Config');
+        $config = $config['EddieJaoude\Zf2Logger'];
         $this->logger = new Logger();
 
         $this->configuration($config);
