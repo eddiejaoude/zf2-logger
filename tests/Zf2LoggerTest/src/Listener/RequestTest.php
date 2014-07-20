@@ -70,9 +70,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, count($this->instance->getListeners()));
 
+        $listeners = $this->instance->getListeners();
         $this->assertInstanceOf(
             'Zend\Stdlib\CallbackHandler',
-            $this->instance->getListeners()[0]
+            $listeners[0]
         );
 
         $this->assertTrue($this->instance->removeListener(0));
