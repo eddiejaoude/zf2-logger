@@ -10,8 +10,10 @@ before_script:
   - php composer.phar install --dev --no-interaction
 
 script:
-  - mkdir -p build/logs
+  - mkdir -p tests/build/logs
   - vendor/bin/phpunit -c ./tests/phpunit.xml
 
 after_script:
   - php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover tests/build/logs/clover.xml
