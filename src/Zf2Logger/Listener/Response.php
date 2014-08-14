@@ -119,13 +119,25 @@ class Response implements ListenerAggregateInterface
     public function logResponse(EventInterface $event)
     {
         if ($event->getRequest() instanceOf \Zend\Http\PhpEnvironment\Request) {
+
+            $contentType = $event->getResponse()->getHeaders()->get('Content-Type');
+            $content = $event->getResponse()->getContent();
+
+            if($contentType instanceof \Zend\Http\Header\ContentType) {
+                if(in_array($event->getResponse()->getHeaders()->get('Content-Type')->getMediaType(), array('image/png','application/pdf'))) {
+                    $content = 'BINARY';
+                }
+            }
+
             $this->getLog()->debug(
                 print_r(
                     array(
                         $event->getRequest()->getUri()->getHost() => array(
                             'Response' => array(
-                                'statusCode' => $event->getResponse()->getStatusCode(),
-                                'content'    => $event->getResponse()->getContent()
+                                'statusCode'  => $event->getResponse()->getStatusCode(),
+                                'contentType' => (!$event->getResponse()->getHeaders()->get('Content-Type'))
+                                        ? 'unknown' : $event->getResponse()->getHeaders()->get('Content-Type')->getMediaType(),
+                                'content'     => $content,
                             )
                         )
                     )

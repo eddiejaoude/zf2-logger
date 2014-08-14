@@ -92,7 +92,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($this->instance->getListeners()));
     }
 
-    public function testLogResponse()
+    public function testLogResponseForNonBinary()
     {
         $this->instance->setLog($this->logger);
 
@@ -106,8 +106,18 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $eventManager->shouldReceive('getRequest')
             ->andReturn($request);
 
+
+
         $eventManager->shouldReceive('getResponse')
             ->andReturn(\Mockery::self());
+
+        $eventManager->shouldReceive('getHeaders')
+            ->andReturn(\Mockery::self());
+
+        $eventManager->shouldReceive('get')
+            ->with('Content-Type')
+            ->andReturn((new \Zend\Http\Header\ContentType())->setMediaType('application/json'));
+
         $eventManager->shouldReceive('getStatusCode')
             ->andReturn('200');
         $eventManager->shouldReceive('getContent')
@@ -128,5 +138,54 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], '200')));
         $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], '123')));
         $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'Test me')));
+    }
+
+    public function testLogResponseForBinary()
+    {
+        $this->instance->setLog($this->logger);
+
+        $request = \Mockery::mock('Zend\Http\PhpEnvironment\Request');
+        $request->shouldReceive('getUri')
+            ->andReturn(\Mockery::self());
+        $request->shouldReceive('getHost')
+            ->andReturn('mock.host');
+
+        $eventManager = \Mockery::mock('Zend\EventManager\Event')->shouldDeferMissing();
+        $eventManager->shouldReceive('getRequest')
+            ->andReturn($request);
+
+
+
+        $eventManager->shouldReceive('getResponse')
+            ->andReturn(\Mockery::self());
+
+        $eventManager->shouldReceive('getHeaders')
+            ->andReturn(\Mockery::self());
+
+        $eventManager->shouldReceive('get')
+            ->with('Content-Type')
+            ->andReturn((new \Zend\Http\Header\ContentType())->setMediaType('image/png'));
+
+        $eventManager->shouldReceive('getStatusCode')
+            ->andReturn('200');
+        $eventManager->shouldReceive('getContent')
+            ->andReturn(
+                json_encode(
+                    array(
+                        'user' => array(
+                            'id' => 123,
+                            'name' => 'Test me',
+                        )
+                    )
+                )
+            );
+
+        $this->instance->logResponse($eventManager);
+
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'mock.host')));
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], '200')));
+        $this->assertTrue(is_int(strpos($this->writer->events[0]['message'], 'BINARY')));
+        $this->assertFalse(is_int(strpos($this->writer->events[0]['message'], '123')));
+        $this->assertFalse(is_int(strpos($this->writer->events[0]['message'], 'Test me')));
     }
 }
