@@ -65,7 +65,10 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             'EddieJaoude\Zf2Logger\Listener\Response',
-            $this->instance->addListener(new \Zend\Stdlib\CallbackHandler(function(){}))
+            $this->instance->addListener(
+                new \Zend\Stdlib\CallbackHandler(function () {
+                })
+            )
         );
 
         $this->assertEquals(1, count($this->instance->getListeners()));
@@ -107,16 +110,18 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
             ->andReturn($request);
 
 
-
         $eventManager->shouldReceive('getResponse')
             ->andReturn(\Mockery::self());
 
         $eventManager->shouldReceive('getHeaders')
             ->andReturn(\Mockery::self());
 
+        $contentType = new \Zend\Http\Header\ContentType();
         $eventManager->shouldReceive('get')
             ->with('Content-Type')
-            ->andReturn((new \Zend\Http\Header\ContentType())->setMediaType('application/json'));
+            ->andReturn(
+                $contentType->setMediaType('application/json')
+            );
 
         $eventManager->shouldReceive('getStatusCode')
             ->andReturn('200');
@@ -125,7 +130,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
                 json_encode(
                     array(
                         'user' => array(
-                            'id' => 123,
+                            'id'   => 123,
                             'name' => 'Test me',
                         )
                     )
@@ -155,16 +160,18 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
             ->andReturn($request);
 
 
-
         $eventManager->shouldReceive('getResponse')
             ->andReturn(\Mockery::self());
 
         $eventManager->shouldReceive('getHeaders')
             ->andReturn(\Mockery::self());
 
+        $contentType = new \Zend\Http\Header\ContentType();
         $eventManager->shouldReceive('get')
             ->with('Content-Type')
-            ->andReturn((new \Zend\Http\Header\ContentType())->setMediaType('image/png'));
+            ->andReturn(
+                $contentType->setMediaType('image/png')
+            );
 
         $eventManager->shouldReceive('getStatusCode')
             ->andReturn('200');
@@ -173,7 +180,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
                 json_encode(
                     array(
                         'user' => array(
-                            'id' => 123,
+                            'id'   => 123,
                             'name' => 'Test me',
                         )
                     )
