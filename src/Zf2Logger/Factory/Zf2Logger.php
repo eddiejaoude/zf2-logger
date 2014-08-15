@@ -3,7 +3,6 @@ namespace EddieJaoude\Zf2Logger\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Log\Logger as ZendLogger;
 use Zend\Log\Filter\Priority;
 use EddieJaoude\Zf2Logger\Log\Logger;
 
@@ -84,15 +83,15 @@ class Zf2Logger implements FactoryInterface
     private function configuration(array $config)
     {
         if (!empty($config['registerErrorHandler'])) {
-            $config['registerErrorHandler'] === false ?: ZendLogger::registerErrorHandler( $this->logger );
+            $config['registerErrorHandler'] === false ?: Logger::registerErrorHandler( $this->logger );
         }
         if (!empty($config['registerExceptionHandler'])) {
-            $config['registerExceptionHandler'] === false ?: ZendLogger::registerExceptionHandler( $this->logger );
+            $config['registerExceptionHandler'] === false ?: Logger::registerExceptionHandler( $this->logger );
         }
     }
 
     /**
-     * @return ZendLogger
+     * @return Logger
      */
     private function execute()
     {
