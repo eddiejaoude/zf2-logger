@@ -60,6 +60,16 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         ->with('EddieJaoude\Zf2Logger')
             ->andReturn($logger);
 
+        $mvcEvent->shouldReceive('get')
+            ->with('Config')
+            ->andReturn(
+                array(
+                    'doNotLog' => array(
+                        'mediaTypes' => array('image/png', 'application/pdf'),
+                    ),
+                )
+            );
+
         $eventManager = \Mockery::mock('Zend\EventManager\EventManager')->shouldDeferMissing();
 
         $mvcEvent->shouldReceive('getEventManager')

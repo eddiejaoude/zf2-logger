@@ -148,6 +148,9 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testLogResponseForBinary()
     {
         $this->instance->setLog($this->logger);
+        $this->instance->setIgnoreMediaTypes(
+           array('image/png', 'application/pdf')
+        );
 
         $request = \Mockery::mock('Zend\Http\PhpEnvironment\Request');
         $request->shouldReceive('getUri')

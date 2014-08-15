@@ -21,9 +21,13 @@ class Module
             new Request($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'))
         );
 
-        $eventManager->attach(
-            new Response($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'))
-        );
+
+        $config = $e->getApplication()->getServiceManager()->get('Config');
+
+        $response   = new Response($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'));
+        $mediaTypes = empty($config['doNotLog']['mediaTypes']) ? : $config['doNotLog']['mediaTypes'];
+        $response->setIgnoreMediaTypes($mediaTypes);
+        $eventManager->attach($response);
 
         return;
     }

@@ -9,7 +9,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\CallbackHandler;
 
 /**
- * Class Request
+ * Class Response
  *
  * @package Application\Event
  */
@@ -20,6 +20,11 @@ class Response implements ListenerAggregateInterface
      * @var Log
      */
     protected $log;
+
+    /**
+     * @var array
+     */
+    protected $ignoreMediaTypes = array();
 
     /**
      * @var array
@@ -47,13 +52,33 @@ class Response implements ListenerAggregateInterface
     /**
      * @param Log $log
      *
-     * @return Request
+     * @return Response
      */
     public function setLog(Log $log)
     {
         $this->log = $log;
 
         return $this;
+    }
+
+    /**
+     * @param array $ignoreMediaTypes
+     *
+     * @return Response
+     */
+    public function setIgnoreMediaTypes(array $ignoreMediaTypes)
+    {
+        $this->ignoreMediaTypes = $ignoreMediaTypes;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIgnoreMediaTypes()
+    {
+        return $this->ignoreMediaTypes;
     }
 
     /**
@@ -67,7 +92,7 @@ class Response implements ListenerAggregateInterface
     /**
      * @param CallbackHandler $listeners
      *
-     * @return Request
+     * @return Response
      */
     public function addListener(CallbackHandler $listeners)
     {
@@ -124,7 +149,7 @@ class Response implements ListenerAggregateInterface
             $content = $event->getResponse()->getContent();
 
             if($contentType instanceof \Zend\Http\Header\ContentType) {
-                if(in_array($event->getResponse()->getHeaders()->get('Content-Type')->getMediaType(), array('image/png','application/pdf'))) {
+                if(in_array($event->getResponse()->getHeaders()->get('Content-Type')->getMediaType(), $this->getIgnoreMediaTypes())) {
                     $content = 'BINARY';
                 }
             }
