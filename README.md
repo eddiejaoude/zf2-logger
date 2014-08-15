@@ -18,7 +18,7 @@
 
 ## Installation via Composer
 
-### Steps 
+### Steps
 
 #### 1. Add to composer.
 
@@ -27,6 +27,8 @@
         "eddiejaoude/zf2-logger" : "0.*"
     }
 ```
+
+Update your dependencies `php composer.phar update eddiejaoude/zf2-logger`
 
 #### 2. [OPTIONAL] To override or add additional configuration create the file ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
 
@@ -236,6 +238,21 @@ Each output includes & is prepended with the host - this is especially useful wh
 ## Unit tests
 
 To run unit tests (from root diectory)
+
+1. Download Composer
+
+```
+curl -sS https://getcomposer.org/installer | php
+```
+
+
+2. Install dependencies
+
+```
+php composer.phar install
+```
+
+3. Run tests
 
 ```
 vendor/bin/phpunit -c tests/phpunit.xml
