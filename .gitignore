@@ -7,3 +7,5 @@ extras/documentation
 vendor
 *.swp
 tests/build
+composer.phar
+
