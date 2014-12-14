@@ -22,7 +22,7 @@ class Module
         );
 
 
-        $config = $e->getApplication()->getServiceManager()->get('Config');
+        $config = $e->getApplication()->getServiceManager()->get('Config')['EddieJaoude\Zf2Logger'];
 
         $response   = new Response($e->getApplication()->getServiceManager()->get('EddieJaoude\Zf2Logger'));
         $mediaTypes = empty($config['doNotLog']['mediaTypes']) ? : $config['doNotLog']['mediaTypes'];
