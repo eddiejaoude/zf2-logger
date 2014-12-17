@@ -64,9 +64,11 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
             ->with('Config')
             ->andReturn(
                 array(
-                    'doNotLog' => array(
-                        'mediaTypes' => array('image/png', 'application/pdf'),
-                    ),
+                    'EddieJaoude\Zf2Logger' => array(
+                        'doNotLog' => array(
+                            'mediaTypes' => array('image/png', 'application/pdf'),
+                        ),
+                    )
                 )
             );
 
