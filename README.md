@@ -30,11 +30,7 @@
 
 Update your dependencies `php composer.phar update eddiejaoude/zf2-logger`
 
-#### 2. [OPTIONAL] To override or add additional configuration create the file ```zf2Logger.global.php``` in ```config/autoload``` with configuration (/config/module.config.php)
-
-```
-    /module.config.php to /config/autoload/zf2Logger.global.php
-```
+#### 2. Copy the configuration file `config/module.config.php.dist` to `config/autoload/zf2Logger.global.php`
 
 #### 3. Add module to application config (/config/application.config.php)
 
