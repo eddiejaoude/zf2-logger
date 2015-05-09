@@ -355,3 +355,4 @@ Ideas & requirements welcome.
 * Coveralls https://coveralls.io/r/eddiejaoude/zf2-logger
 * Scrutinizer https://scrutinizer-ci.com/g/eddiejaoude/zf2-logger/
 
+
